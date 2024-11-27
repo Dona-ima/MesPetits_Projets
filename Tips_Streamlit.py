@@ -13,7 +13,7 @@ data = sns.load_dataset('tips')
 data.head()
 
 # Charger et afficher le fichier image
-image = Image.open("C:/Users/ADMIN/data.png")
+image = Image.open("Images/data.png")
 st.image(image, caption="Mon Graphique")
 st.write(f"Le Dataset est constitué de {data.shape[0]} lignes et de {data.shape[1]} colonnes.")
 
@@ -47,7 +47,7 @@ for var in var_qualitative:
     var_qualitative[var].value_counts().plot(kind='pie', autopct='%1.1f%%', ax=axs[row, column])
     axs[row, column].set_title(f'Pie chart de {var}')
     i +=1
-image = Image.open("C:/Users/ADMIN/camembert.png")
+image = Image.open("Images/camembert.png")
 st.image(image, caption="Pie Chart")
 st.markdown('**On note que le lieu est plus fréquenté le weekend principalement pour des dinnés, que les clients sont majoritairement non fumeurs et que les factures sont surtout réglés par des hommes.**\n\n\n\n\n\n')
 st.write("\n\n")
@@ -56,7 +56,7 @@ st.write("\n\n")
 #pairplot
 st.subheader('Pairplot')
 sns.pairplot(data, hue='day')
-image = Image.open("C:/Users/ADMIN/pairplot1.png")
+image = Image.open("Images/pairplot1.png")
 st.image(image, caption="Pairplot")
 st.write("**On note que lorsque l'addition et la taille de la table augmente, le pourboir augmente. et aussi que l'addition augmente lorque la taille de la table augmante. On remarque aussi que les samedis et jeudi, le nombre de table réservées est élevé et ce sont en majorité des table de 2, et que l'addition et les pourboires sont élevés.Donc on peut dire que les samedis et jeudis il y a plus de clients et ce sont principalement des couples(duo) et vu que l'addition est élévé et que le pourboir aussi, il peut s'agir de rencard au cours desquels l'un essai d'impressionner l'autre.**")
 st.write("\n\n")
@@ -71,14 +71,14 @@ for i, col in enumerate (var_quantitativeCont.columns):
     sns.boxplot(data=var_quantitativeCont[col],ax=axs[i])
     axs[i].set_title(f'Boxplot de {col}')
     i +=1
-image = Image.open("C:/Users/ADMIN/boxplots.png")
+image = Image.open("Images/boxplots.png")
 st.image(image, caption="Boîtes à Moustache")
 st.write("\n\n")
 st.write("\n\n")
 
 #Matrice de Correlation
 st.subheader('Matrixe de correlation')
-image = Image.open("C:/Users/ADMIN/corr_matrix.png")
+image = Image.open("Images/corr_matrix.png")
 st.write("\n\n")
 st.write("\n\n")
 
@@ -86,7 +86,7 @@ st.write("\n\n")
 st.subheader('Individus qui sont les plus généreux côté pourboire')
 data.groupby(['sex', 'smoker'])['tip'].mean().plot(kind='line')
 plt.title('Moyenne des pourboires en fonction du sexe et du moment du repas')
-image = Image.open("C:/Users/ADMIN/moyenne_Pourboire_F(sex&smoker).png")
+image = Image.open("Images/moyenne_Pourboire_F(sex&smoker).png")
 st.image(image, caption="Moyenne des pourboires en fonction du sexe et du status de l'individu")
 st.write("\n\n")
 st.write("\n\n")
@@ -95,7 +95,7 @@ st.write("\n\n")
 st.subheader('Individus qui sont les plus généreux côté pourboire et les jours')
 data.groupby(['sex', 'day'])['tip'].mean().plot(kind='line')
 plt.title('Moyenne des pourboires en fonction du sexe et du jour du repas')
-image = Image.open("C:/Users/ADMIN/moyenne_Pourboire_F(sex&day).png")
+image = Image.open("Images/moyenne_Pourboire_F(sex&day).png")
 
 st.header('Conclusion')
 st.markdown("On peut déduire que du fait que le lieu est plus fréquenté le weekend,pour des dînners, que les tables prises sont celles de 2 et que les les clients les plus généreux sont les hommes non fumeurs , alors le lieu a du succès du côté des dînners entre couple et pour maximiser son gain il pourrait proposer des services spéciaux ou faires des réductions pour de tels dînners")
