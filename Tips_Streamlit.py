@@ -1,101 +1,90 @@
 import streamlit as st
-from PIL import Image
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pandas.plotting import table
+from PIL import Image
 
 st.title("Analyse des données du dataset de Tips")
 
-st.header('Importation des des données')
+# Charger les données
+st.header('Importation des données')
 data = sns.load_dataset('tips')
-data.head()
+st.write(data.head())
 
-# Charger et afficher le fichier image
-image = Image.open("images/data.png")
-st.image(image, caption="Mon Graphique")
+
+
+# Afficher la taille du dataset
 st.write(f"Le Dataset est constitué de {data.shape[0]} lignes et de {data.shape[1]} colonnes.")
 
-x=st.header('Information sur les colonnes.')
-
-
+# Description des colonnes
+st.header('Information sur les colonnes.')
 st.write(
-"- total_bill : Le montant total de la facture avant les pourboires. C'est la somme que le client doit payer pour la nourriture et les boissons, sans inclure le pourboire.\n\n",
-"- tip : Le montant du pourboire donné par le client. Ce montant est généralement calculé en fonction du total de la facture.\n",
-"- sex : Le sexe du client qui a payé la facture. Les valeurs possibles sont 'Male' (homme) et 'Female' (femme).\n\n",
-"- smoker : Indique si la personne est fumeuse ou non. Les valeurs possibles sont 'Yes' (oui) et 'No' (non).\n\n",
-"- day : Le jour de la semaine où le repas a été pris. Les valeurs possibles sont 'Thur' (jeudi), 'Fri' (vendredi), 'Sat' (samedi), et 'Sun' (dimanche).\n\n",
-"- time : Le moment de la journée où le repas a été pris. Les valeurs possibles sont 'Lunch' (déjeuner) et 'Dinner' (dîner).\n\n",
-"- size : Le nombre de personnes qui ont pris le repas (taille de la table). Cela peut être un nombre entier comme 1, 2, 3, etc.\n\n")
+    "- total_bill : Le montant total de la facture avant les pourboires.\n",
+    "- tip : Le montant du pourboire donné par le client.\n",
+    "- sex : Le sexe du client qui a payé la facture.\n",
+    "- smoker : Indique si la personne est fumeuse ou non.\n",
+    "- day : Le jour de la semaine où le repas a été pris.\n",
+    "- time : Le moment de la journée où le repas a été pris.\n",
+    "- size : Le nombre de personnes à la table.\n"
+)
 
+# Visualisation
 st.header('Visualisation des données')
-st.write("Dans le dataset nous avons donc 7 variables dont **4 qualitatives** (sex, day, smoker, time) et **2 quantitatives continues** (total_bill, tip) et **1 quantitative discrète** (size). Aucune valeur du dataset n'est manquante et il n'y a pas de valeurs dupliquées")
-st.subheader('Statistiques Descriptives')
-data.describe(include = 'all').T
-st.write("\n\n")
-st.write("\n\n")
+st.write("Dans le dataset, nous avons 7 variables : 4 qualitatives, 2 quantitatives continues, et 1 discrète.")
 
-#camembert
+# Statistiques descriptives
+st.subheader('Statistiques Descriptives')
+st.write(data.describe(include='all').T)
+
+# Camemberts
 st.subheader('Pie Chart')
-var_qualitative= data[['sex', 'smoker', 'day' ,'time']]
-fig,axs= plt.subplots(2,2, figsize=(10,12))
-i=0
+var_qualitative = data[['sex', 'smoker', 'day', 'time']]
+fig, axs = plt.subplots(2, 2, figsize=(10, 12))
+i = 0
 for var in var_qualitative:
-    row= i // 2
-    column= i % 2
+    row = i // 2
+    column = i % 2
     var_qualitative[var].value_counts().plot(kind='pie', autopct='%1.1f%%', ax=axs[row, column])
     axs[row, column].set_title(f'Pie chart de {var}')
-    i +=1
-image = Image.open("images/camembert.png")
-st.image(image, caption="Pie Chart")
-st.markdown('**On note que le lieu est plus fréquenté le weekend principalement pour des dinnés, que les clients sont majoritairement non fumeurs et que les factures sont surtout réglés par des hommes.**\n\n\n\n\n\n')
-st.write("\n\n")
-st.write("\n\n")
+    i += 1
+st.pyplot(fig)
 
-#pairplot
+# Pairplot
 st.subheader('Pairplot')
 sns.pairplot(data, hue='day')
-image = Image.open("images/pairplot1.png")
-st.image(image, caption="Pairplot")
-st.write("**On note que lorsque l'addition et la taille de la table augmente, le pourboir augmente. et aussi que l'addition augmente lorque la taille de la table augmante. On remarque aussi que les samedis et jeudi, le nombre de table réservées est élevé et ce sont en majorité des table de 2, et que l'addition et les pourboires sont élevés.Donc on peut dire que les samedis et jeudis il y a plus de clients et ce sont principalement des couples(duo) et vu que l'addition est élévé et que le pourboir aussi, il peut s'agir de rencard au cours desquels l'un essai d'impressionner l'autre.**")
-st.write("\n\n")
-st.write("\n\n")
+st.pyplot(plt)
 
-#Boxplots
+# Boxplots
 st.subheader('Boîtes à Moustaches')
-fig,axs= plt.subplots(1,3, figsize=(18,8))
-i=0
-var_quantitativeCont= data[['total_bill', 'tip', 'size']]
-for i, col in enumerate (var_quantitativeCont.columns): 
-    sns.boxplot(data=var_quantitativeCont[col],ax=axs[i])
+fig, axs = plt.subplots(1, 3, figsize=(18, 8))
+var_quantitativeCont = data[['total_bill', 'tip', 'size']]
+for i, col in enumerate(var_quantitativeCont.columns):
+    sns.boxplot(data=var_quantitativeCont[col], ax=axs[i])
     axs[i].set_title(f'Boxplot de {col}')
-    i +=1
-image = Image.open("images/boxplots.png")
-st.image(image, caption="Boîtes à Moustache")
-st.write("\n\n")
-st.write("\n\n")
+st.pyplot(fig)
 
-#Matrice de Correlation
-st.subheader('Matrixe de correlation')
-image = Image.open("images/corr.png")
-st.write("\n\n")
-st.write("\n\n")
+# Matrice de Corrélation
+st.subheader('Matrice de corrélation')
+corr_matrix = var_quantitativeCont.corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='crest', fmt='.2f', center=0)
+st.pyplot(plt)
 
-#Individus qui sont les plus généreux côté pourboir
-st.subheader('Individus qui sont les plus généreux côté pourboire')
+# Pourboires par sexe et statut de fumeur
+st.subheader('Individus les plus généreux côté pourboire')
+plt.figure(figsize=(10, 6))
 data.groupby(['sex', 'smoker'])['tip'].mean().plot(kind='line')
 plt.title('Moyenne des pourboires en fonction du sexe et du moment du repas')
-image = Image.open("images/moyenne_Pourboire_F(sex&smoker).png")
-st.image(image, caption="Moyenne des pourboires en fonction du sexe et du status de l'individu")
-st.write("\n\n")
-st.write("\n\n")
+st.pyplot(plt)
 
-#
-st.subheader('Individus qui sont les plus généreux côté pourboire et les jours')
+# Pourboires en fonction du jour
+st.subheader('Individus les plus généreux côté pourboire et les jours')
+plt.figure(figsize=(10, 6))
 data.groupby(['sex', 'day'])['tip'].mean().plot(kind='line')
 plt.title('Moyenne des pourboires en fonction du sexe et du jour du repas')
-image = Image.open("images/moyenne.png")
+st.pyplot(plt)
 
+# Conclusion
 st.header('Conclusion')
-st.markdown("On peut déduire que du fait que le lieu est plus fréquenté le weekend,pour des dînners, que les tables prises sont celles de 2 et que les les clients les plus généreux sont les hommes non fumeurs , alors le lieu a du succès du côté des dînners entre couple et pour maximiser son gain il pourrait proposer des services spéciaux ou faires des réductions pour de tels dînners")
+st.markdown("On peut déduire que le lieu est plus fréquenté le weekend pour des dîners, que les tables prises sont principalement de taille 2, et que les hommes non fumeurs sont les plus généreux.")
