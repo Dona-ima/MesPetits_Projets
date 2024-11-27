@@ -13,7 +13,7 @@ data = sns.load_dataset('tips')
 data.head()
 
 # Charger et afficher le fichier image
-image = Image.open("https://github.com/Dona-ima/MesPetits_Projets/blob/main/images/data.png")
+image = Image.open("MesPetits_Projets/blob/main/images/data.png")
 st.image(image, caption="Mon Graphique")
 st.write(f"Le Dataset est constitué de {data.shape[0]} lignes et de {data.shape[1]} colonnes.")
 
