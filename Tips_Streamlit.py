@@ -7,6 +7,14 @@ from PIL import Image
 
 st.title("Analyse des données du dataset de Tips")
 
+with st.sidebar:
+    st.header("À propos de l'auteur")
+    st.write("Ce projet a été réalisé par Ariane AGBOTON.")
+    st.write("Je suis étudiante en Intelligence Artificielle à l'Institut de Formation pour la Recherche en Informatique (IFRI-UAC) 😊👩🏾‍💻.")
+    st.write("Email : arianeagboton70@gmail.com")
+    st.write("LinkedIn :  https://www.linkedin.com/in/ariane-agboton-2a7885305")
+    st.write("GitHub : https://github.com/Dona-ima")
+
 # Chargement des données
 with st.expander('Importation des données'):
     st.header('Importation des données')
@@ -49,12 +57,14 @@ with st.expander('Camemberts'):
         axs[row, column].set_title(f'Pie chart de {var}')
         i += 1
     st.pyplot(fig)
+    st.markdown("**On note que le lieu est plus fréquenté le weekend principalement pour des dinnés, que les clients sont majoritairement non fumeurs et que les factures sont surtout réglés par des hommes.**")
 
 # Pairplot
 with st.expander('Pairplot'):
     st.subheader('Pairplot')
     sns.pairplot(data, hue='day')
     st.pyplot(plt)
+    st.markdown("**On note que lorsque l'addition et la taille de la table augmente, le pourboir augmente. et aussi que l'addition augmente lorque la taille de la table augmante. On remarque aussi que les samedis et jeudi, le nombre de table réservées est élevé et ce sont en majorité des table de 2, et que l'addition et les pourboires sont élevés.Donc on peut dire que les samedis et jeudis il y a plus de clients et ce sont principalement des couples(duo) et vu que l'addition est élévé et que le pourboir aussi, il peut s'agir de rencard au cours desquels l'un essai d'impressionner l'autre.**")
 
 # Boxplots
 with st.expander('Boxplots'):
@@ -65,6 +75,7 @@ with st.expander('Boxplots'):
         sns.boxplot(data=var_quantitativeCont[col], ax=axs[i])
         axs[i].set_title(f'Boxplot de {col}')
     st.pyplot(fig)
+    st.markdown("**On note au niveau du boxplot de l'addition une faible dispersion sur 50% des données et la valeur de l'addition varie d'environs 13 à 24 dollards.Au niveau du boxplot du pourboire on fait également le même constat sur 50% des données et la valeur du pourboire varie de 2 à 3.8$.De même sur le boxplot de la taille de la table on note une faible dispersion sur 50% des données et les types de table les plus prises sont celles de 2 à 3 places.Et sur tous les boxplots on note des valeurs extrêmes ie des valeurs plutôt éloignées des autres et qui sont rares.**")
 
 # Matrice de Corrélation
 with st.expander('Matrice de corrélation'):
@@ -73,6 +84,7 @@ with st.expander('Matrice de corrélation'):
     plt.figure(figsize=(10, 8))
     sns.heatmap(corr_matrix, annot=True, cmap='crest', fmt='.2f', center=0)
     st.pyplot(plt)
+    
 
 # Pourboires par sexe et statut de fumeur
 with st.expander('Individus les plus généreux côté pourboire'):
@@ -81,6 +93,7 @@ with st.expander('Individus les plus généreux côté pourboire'):
     data.groupby(['sex', 'smoker'])['tip'].mean().plot(kind='line')
     plt.title('Moyenne des pourboires en fonction du sexe et du moment du repas')
     st.pyplot(plt)
+    st.markdown("**On note que ceux qui donnes plus de pourboires sont les hommes non fumeur et le pourboire maximal donné est d'environs 3.13$.**")
 
 # Pourboires en fonction du jour
 with st.expander('Individus les plus généreux côté pourboire et les jours'):
@@ -89,6 +102,7 @@ with st.expander('Individus les plus généreux côté pourboire et les jours'):
     data.groupby(['sex', 'day'])['tip'].mean().plot(kind='line')
     plt.title('Moyenne des pourboires en fonction du sexe et du jour du repas')
     st.pyplot(plt)
+    st.markdown("**On note que les pourboires les plus élevés sont donnés surtout en weekends et par les hommes.**")
 
 # Conclusion
 with st.expander('Conclusion'):
