@@ -1,0 +1,23 @@
+# Environnement virtuel
+myvenv/
+venv/
+env/
+
+# Fichiers Python compilés
+*.pyc
+*.pyo
+__pycache__/
+
+# Fichiers de log
+*.log
+flask.log
+
+# Fichiers de configuration locaux ou secrets
+.env
+*.env
+
+# Fichiers temporaires ou de cache
+*.swp
+*.swo
+.DS_Store
+

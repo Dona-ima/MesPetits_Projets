@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href= "{{ url_for ('static', filename = 'css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ url_for ('static', filename = 'css/bootstrap.min.css')}}">
+    <title> {%  if title %} {{ title }} {% else %}Apprendre Flask {% endif %}</title>
+    <style>
+        body{
+            background-color: rgb(223, 217, 217);
+        }
+    </style>
+</head>
+<body>
+    {% include "partials/_navbar.html"%}
+    <div class="content">
+        {% block content %}
+        
+        {% endblock content %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for ('static', filename = 'css/bootstrap.js')}}"></script>
+    <script src="{{ url_for ('static', filename = 'css/bootstrap.min.js')}}"></script>
+</body>
+
+</html>
