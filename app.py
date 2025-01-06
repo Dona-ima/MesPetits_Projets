@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, time, timedelta
-from flask_mail import Mail, Message
-from celery import Celery
+#from flask_mail import Mail, Message
+#from celery import Celery
 
 # creation of the instance of flask (it's like Poo)
 app = Flask(__name__)
