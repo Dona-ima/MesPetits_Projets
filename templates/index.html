@@ -4,29 +4,58 @@
 <h2 class="text-center pt-5 pb-4" >My Tasks</h2>
 <div >
 {% if tasks %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>Task</th>
-            <th>Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for task in tasks %}
-        <tr>
-            <th><a href="/update/{{ task.id }}">{{ task.name }}</a></th>
-            <th>{{ task.created_at.date() }}</th>
-            <th>
-                <a href="/delete/{{task.id}}" class="btn btn-danger">Delete</a>
-            </th>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Is Done</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for task in tasks %}
+    <tr data-id="{{ task.id }}">
+        <th>{{ task.name }}</th>
+        <th>{{ task.description }}</th>
+        <th>{{ task.date }}</th>
+        <th>{{ task.start_time }}</th>
+        <th>{{ task.end_time }}</th>
+        <th>{{ task.completed }}</th>
+        <th>
+            <a href="/delete/{{ task.id }}" class="btn btn-danger">Delete</a>
+        </th>
+        <th>
+            {% if task.completed %}
+            <a href="/undone/{{ task.id }}" class="btn btn-warning">Mark as unfinished</a>
+            {% else %}
+            <a href="/done/{{ task.id }}" class="btn btn-success">Finished</a>
+            {% endif %}
+        </th>
+    </tr>
+    {% endfor %}
+    
+<script>
+    document.querySelectorAll('tr[data-id]').forEach(row => {
+        row.addEventListener('click', function () {
+            window.location.href = '/update/' + row.dataset.id;
+        });
+    });
+</script>
+</tbody>
+
+    </table>
+</div>
+
 {% else %}
 <p>Nothing to do...</p>
 {% endif %}
-{%include "partials/_form.html" %}
+<a href="/addtask/" class="btn btn-primary my-3 mx-3">Add a Task</a>
+
 </div>
 {% endblock content %}

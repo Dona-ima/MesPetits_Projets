@@ -1,11 +1,37 @@
-<form action="/" method="POST">
+<h4 class="pt-4 text-center">Adding a Task</h4>
+<div class="d-flex justify-content-center align-items-center vh-180">
+    <form action="/addtask/" style="width: 100%; max-width: 600px;" method="POST">
     <div class="form-row px-3">
-        <div class="col-sm-15 my-1">
-            <label for="name" class="pt-2 px-2">New Task: </label>
+        <div class="col-sm-25 my-1 mx-3">
+            <label for="name" class="pt-2 px-2">Title</label>
             <input type="text" name="name" id= "name" class="form-control" placeholder="Add a task"/>
         </div>
-        <div class="col-sm-2 my-2">
-            <button type="submit" class="btn btn-primary col-sm-10">Add</button>
+        <div class="col-sm-25 my-1 mx-3">
+            <label for="description" class="pt-2 px-2">Description</label>
+            <input type="text" name="description" id= "description" class="form-control" placeholder="Add a Description"/>
+        </div>
+        <div class="col-sm-25 my-1 mx-3">
+            <label for="date" class="pt-2 px-2">Jour</label>
+            <input type="date" name="date" id= "date" class="form-control"/>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="col-sm-25 my-1 mx-3">
+                <label for="start_time" class="pt-2 px-2">Start at</label>
+                <input type="time" name="start_time" id= "start_time" class="form-control"/>
+            </div>
+            <div class="col-sm-25 my-1 mx-3">
+                <label for="end_time" class="pt-2 px-2">End at</label>
+                <input type="time" name="end_time" id= "end_time" class="form-control"/>
+            </div>
+        </div>
+        <div class="col-sm-25 my-1 mx-3">
+            <label for="email" class="pt-2 px-2">Email</label>
+            <input type="email" name="email" id= "email" class="form-control"/>
+        </div>
+        <div class="col-sm-25 my-3 d-flex justify-content-between  mx-3">
+            <button type="submit" class="btn btn-primary">Add</button>
+            
         </div>
     </div>
-</form>
+    </form>
+</div>

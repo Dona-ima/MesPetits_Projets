@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= "{{ url_for ('static', filename = 'css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{ url_for ('static', filename = 'css/bootstrap.min.css')}}">
+    
     <title> {%  if title %} {{ title }} {% else %}Apprendre Flask {% endif %}</title>
     <style>
         body{
             background-color: rgb(223, 217, 217);
         }
+        table tr:hover {
+    background-color: #4973a7;  /* Change la couleur de fond quand on survole la ligne */
+    cursor: pointer;  /* Change le curseur pour montrer qu'il y a une action */
+}
+
     </style>
 </head>
 <body>
